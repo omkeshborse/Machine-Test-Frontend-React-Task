@@ -4,6 +4,7 @@ const url = "https://api.github.com/users";
 
 const Userlist = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,10 +14,19 @@ const Userlist = () => {
         setUsers(users);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
+  if (loading) {
+    return (
+      <section className="wrapper">
+        <div class="spinner"></div>
+      </section>
+    );
+  }
   return (
     <section>
       <h3>github users</h3>
